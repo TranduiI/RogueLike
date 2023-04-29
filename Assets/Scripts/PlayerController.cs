@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
 
 
     public GameObject bulletPrefab;
-    public float bulletSpeed;
+    public float bulletSpeed; 
     private float lastFire;
     public float fireDelay;
 
@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        fireDelay = GameController.FireRate;
+        speed = GameController.MoveSpeed;
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
@@ -49,5 +51,41 @@ public class PlayerController : MonoBehaviour
             (x < 0) ? Mathf.Floor(x) * bulletSpeed : Mathf.Ceil(x) * bulletSpeed,
             (y < 0) ? Mathf.Floor(y) * bulletSpeed : Mathf.Ceil(y) * bulletSpeed,
             0);
+
+        Vector3 rotZ = new Vector3(0, 0, 1);
+
+        if (y == 0)
+        {
+            bullet.GetComponent<Transform>().rotation = Quaternion.AngleAxis((x<0)? 0 : 180, rotZ);
+        }
+        else if (y < 0)
+        {
+            if (x == 0)
+            {
+                bullet.GetComponent<Transform>().rotation = Quaternion.AngleAxis(90, rotZ);
+            }
+            else
+            {
+                bullet.GetComponent<Transform>().rotation = Quaternion.AngleAxis((x < 0) ? 45 : 135, rotZ);
+            }
+            
+        }
+        else if(y > 0)
+        {
+            if(x == 0)
+            {
+                bullet.GetComponent<Transform>().rotation = Quaternion.AngleAxis(270, rotZ);
+            }
+            else
+            {
+                bullet.GetComponent<Transform>().rotation = Quaternion.AngleAxis((x < 0) ? 315 : 225, rotZ);
+            }
+            
+        }
+        
+    }
+    public void Death()
+    {
+        Destroy(gameObject);
     }
 }
