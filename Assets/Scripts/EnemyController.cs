@@ -93,11 +93,11 @@ public class EnemyController : MonoBehaviour
     private IEnumerator ChooseDirection()
     {
         chooseDir = true;
-        yield return new WaitForSeconds(Random.Range(2f, 8f));
+        yield return new WaitForSeconds(Random.Range(1f, 4f));
         randomDir = new Vector3(0, 0, Random.Range(0, 360));
         Quaternion nextRotation = Quaternion.Euler(randomDir);
         transform.rotation = Quaternion.Lerp(transform.rotation, nextRotation, Random.Range(0.5f, 2.5f));
-
+        chooseDir = false;
     }
 
     void Wander()
@@ -105,8 +105,9 @@ public class EnemyController : MonoBehaviour
         if(!chooseDir)
         {
             StartCoroutine(ChooseDirection());
+            
         }
-        transform.position += - transform.right * speed * Time.deltaTime;
+        transform.position += -transform.right * speed * Time.deltaTime;
         if (IsPlayerInRange(range))
         {
             currState = EnemyState.Follow;
@@ -117,6 +118,7 @@ public class EnemyController : MonoBehaviour
     void Follow()
     {
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        
     }
 
     void Attack()
