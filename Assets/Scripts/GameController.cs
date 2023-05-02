@@ -7,10 +7,10 @@ public class GameController : MonoBehaviour
 {
     public static GameController instanse;
 
-    public PlayerController playerController;
+    public GameObject player;
 
-    private static float health = 10;
-    private static int  maxHealth = 10;
+    private static float health = 1000;
+    private static int  maxHealth = 1000;
     private static float moveSpeed = 5;
     private static float fireRate = 0.5f;
 
@@ -35,24 +35,27 @@ public class GameController : MonoBehaviour
         
     }
 
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+
     // Update is called once per frame
     void Update()
-    {   
+    {
         
 
         healthText.text = "Health: " + health;
         
     }
 
-    public static void DamagePlayer(int damage)
+    public static void DamagePlayer(int damage, GameObject player)
     {
         health -= damage;
         if (Health <= 0)
         {
-            KillPlayer();
+            KillPlayer(player);
         }
-
-
     }
 
     public static void HealPlayer(float healAmount)
@@ -71,9 +74,9 @@ public class GameController : MonoBehaviour
     }
 
 
-    public static void KillPlayer()
+    public static void KillPlayer(GameObject player)
     {
-        PlayerController.instance.gameObject.SetActive(false);
+        Destroy(player);
     }
 
 }

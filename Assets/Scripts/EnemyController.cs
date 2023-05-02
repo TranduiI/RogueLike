@@ -31,7 +31,7 @@ public class EnemyController : MonoBehaviour
     public float coolDown;
     public float speed;
     private bool chooseDir = false;
-    private bool dead = false;
+    //private bool dead = false;
     private bool coolDownAttack = false;
     public bool notInRoom = false;
     private Vector3 randomDir;
@@ -144,7 +144,8 @@ public class EnemyController : MonoBehaviour
             switch (enemyType)
             {
                 case(EnemyType.Melee):
-                    GameController.DamagePlayer(1);
+                    
+                    GameController.DamagePlayer(1, player);
                     StartCoroutine(CoolDown());
                     break;
                 case(EnemyType.Ranged):
