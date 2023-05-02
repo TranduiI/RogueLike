@@ -82,24 +82,28 @@ public class Room : MonoBehaviour
                     if (GetRight() == null)
                     {
                         door.gameObject.SetActive(false);
+                        door.doorCollider.SetActive(true);
                     }
                     break;
                 case Door.DoorType.left:
                     if (GetLeft() == null)
                     {
                         door.gameObject.SetActive(false);
+                        door.doorCollider.SetActive(true);
                     }
                     break;
                 case Door.DoorType.top:
                     if (GetTop() == null)
                     {
                         door.gameObject.SetActive(false);
+                        door.doorCollider.SetActive(true);
                     }
                     break;
                 case Door.DoorType.bottom:
                     if (GetBottom() == null)
                     {
                         door.gameObject.SetActive(false);
+                        door.doorCollider.SetActive(true);
                     }
                     break;
             }
@@ -132,9 +136,9 @@ public class Room : MonoBehaviour
     }
     public Room GetBottom()
     {
-        if (RoomController.instance.DoesRoomExist(X, Y-1))
+        if (RoomController.instance.DoesRoomExist(X, Y - 1))
         {
-            return RoomController.instance.FindRoom(X + 1, Y-1);
+            return RoomController.instance.FindRoom(X, Y - 1);
         }
         return null;
     }

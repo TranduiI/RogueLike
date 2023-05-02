@@ -1,8 +1,11 @@
+
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+
     public float speed;
     Rigidbody2D rigidBody;
 
@@ -24,6 +27,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        
+
         fireDelay = GameController.FireRate;
         speed = GameController.MoveSpeed;
         float horizontal = Input.GetAxis("Horizontal");
@@ -41,10 +47,11 @@ public class PlayerController : MonoBehaviour
 
 
         rigidBody.velocity = new Vector3(horizontal*speed, vertical*speed, 0);
-        collectedText.text = "Собрал кружков: " + collectedAmount;
+        //collectedText.text = "Собрал кружков: " + collectedAmount;
     }
     void Shoot(float x, float y)
     {
+        
         GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation) as GameObject;
         bullet.AddComponent<Rigidbody2D>().gravityScale = 0;
         bullet.GetComponent<Rigidbody2D>().velocity = new Vector3(

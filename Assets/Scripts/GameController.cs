@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
 {
     public static GameController instanse;
 
+    public PlayerController playerController;
 
     private static float health = 10;
     private static int  maxHealth = 10;
@@ -36,17 +37,21 @@ public class GameController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        
+
         healthText.text = "Health: " + health;
+        
     }
 
     public static void DamagePlayer(int damage)
     {
         health -= damage;
-        if(Health <= 0)
+        if (Health <= 0)
         {
             KillPlayer();
         }
+
 
     }
 
@@ -66,9 +71,9 @@ public class GameController : MonoBehaviour
     }
 
 
-    private static void KillPlayer()
+    public static void KillPlayer()
     {
-        
+        PlayerController.instance.gameObject.SetActive(false);
     }
 
 }
