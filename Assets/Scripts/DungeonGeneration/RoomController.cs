@@ -34,6 +34,9 @@ public class RoomController : MonoBehaviour
 
     bool updatedRooms = false;
 
+    bool bossIsDead;
+
+
     void Awake()
     {
         instance = this;
@@ -42,6 +45,8 @@ public class RoomController : MonoBehaviour
 
     void Start()
     {
+
+        //UpdateRoomQueue();
         //LoadRoom("Start", 0, 0);
         //LoadRoom("Empty", 1, 0);
         //LoadRoom("Empty", -1, 0); 
@@ -254,6 +259,53 @@ public class RoomController : MonoBehaviour
                 }
             }
         }
+    }
+    //public bool BossIsDead()
+    //{
+    //    if (bossIsDead)
+    //    {
+    //        bossIsDead = false;
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        return false;
+    //    }
+    //}
+
+    //public void DestroyAllRoomsWhenBossDead()
+    //{
+    //    foreach(Room room in loadedRooms)
+    //    {
+    //        Destroy(room.gameObject);
+    //        loadedRooms.Remove(room);
+    //    }
+    //    loadedRooms.Clear();
+    //    bossIsDead = true;
+        
+
+        
+
+    //    if (loadedRooms.Count == 0)
+    //    {
+    //        Debug.Log("Нет загруженных комнат");
+    //    }
+               
+    //}
+    public void MakeNewScene()
+    {
+
+
+        //DontDestroyOnLoad(gameObject);
+
+        //foreach (Room r in loadedRooms)
+        //{
+        //    Destroy(gameObject);
+        //}
+
+        loadedRooms.Clear();
+        SceneManager.LoadScene(5);
+        
     }
 
 }

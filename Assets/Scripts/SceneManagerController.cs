@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class SceneChangeSubscriber : MonoBehaviour
 {
     void Awake()
     {
@@ -20,8 +18,7 @@ public class Player : MonoBehaviour
 
     void Initialization(Scene current, Scene next)
     {
-        gameObject.transform.position = new Vector3(0f, 0f, 0f);// Делаем вещи при смене сцены
+        // Делаем вещи при смене сцены
         Debug.Log($"Last scene [{current.name}] was replaced by [{next.name}]");
     }
-
 }

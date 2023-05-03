@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum EnemyState
 {
@@ -14,13 +15,16 @@ public enum EnemyState
 public enum EnemyType
 {
     Melee, 
-    Ranged
+    Ranged,
+    Boss
 };
 
 
 public class EnemyController : MonoBehaviour
 {
     GameObject player;
+
+
 
     public EnemyState currState = EnemyState.Idle;
     public EnemyType enemyType;
@@ -155,6 +159,13 @@ public class EnemyController : MonoBehaviour
                     bullet.GetComponent<BulletController>().isEnemyBullet = true;
                     StartCoroutine(CoolDown());
                     break;
+                case (EnemyType.Boss):
+                    bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity) as GameObject;
+                    bullet.GetComponent<BulletController>().GetPlayer(player.transform);
+                    bullet.AddComponent<Rigidbody2D>().gravityScale = 0;
+                    bullet.GetComponent<BulletController>().isEnemyBullet = true;
+                    StartCoroutine(CoolDown());
+                    break;
             }
         }
         
@@ -168,8 +179,16 @@ public class EnemyController : MonoBehaviour
 
     public void Death()
     {
+
         RoomController.instance.StartCoroutine(RoomController.instance.RoomCoroutine());
+        if (enemyType == EnemyType.Boss)
+        {
+            RoomController.instance.MakeNewScene();
+        }
+
         Destroy(gameObject);
+        
+        
     }
 
 }

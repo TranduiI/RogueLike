@@ -6,13 +6,15 @@ public class DungeonGenerator : MonoBehaviour
 {
     public DungeonGenerationData dungeonGenerationData;
     private List<Vector2Int> dungeonRooms;
+    public bool go;
 
     private void Start()
-    {
+    {   
         dungeonRooms = DungeonCrawlerController.GenerateDungeon(dungeonGenerationData);
         SpawnRooms(dungeonRooms);
 
     }
+    
 
     private void SpawnRooms(IEnumerable<Vector2Int> rooms)
     {
@@ -26,4 +28,26 @@ public class DungeonGenerator : MonoBehaviour
         }
 
     }
+
+    //private void Update()
+    //{
+    //    if (RoomController.instance.BossIsDead())
+    //    {
+    //        SpawnNewLevel();
+    //    }
+    //}
+
+    //public void SpawnNewLevel()
+    //{
+    //    dungeonRooms = DungeonCrawlerController.GenerateDungeon(dungeonGenerationData);
+    //    if(dungeonRooms == null)
+    //    {
+    //        Debug.Log("Нет данных о построении Подземелья");
+    //    }
+    //    SpawnRooms(dungeonRooms);
+    //}
+
+    
+
+
 }
