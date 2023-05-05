@@ -18,6 +18,8 @@ public class CollectionController : MonoBehaviour
     public float healthChange;
     public float moveSpeedChange;
     public float attackSpeedChange;
+    public float alphaStrikeChange;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +40,7 @@ public class CollectionController : MonoBehaviour
             GameController.HealPlayer(healthChange);
             GameController.MoveSpeedChange(moveSpeedChange);
             GameController.AttackSpeedChange(attackSpeedChange);
-
+            GameController.AlphaStrikeChange(alphaStrikeChange);
             Destroy(gameObject);
         }
     }

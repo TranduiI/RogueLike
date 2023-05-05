@@ -8,13 +8,26 @@ public class GameController : MonoBehaviour
     public static GameController instanse;
 
     public GameObject player;
+    
 
     private static float health = 1000;
     private static int  maxHealth = 1000;
     private static float moveSpeed = 5;
     private static float fireRate = 0.5f;
 
+    private static float alphaStrike = 0.5f;
+
+    private static int score = 0;
+
+    private static int levelsPassed = 0;
+
     public Text healthText;
+
+    public static int LevelsPassed { get => levelsPassed; set => levelsPassed = value; }
+
+    public static int Score { get => score; set => score = value; }
+
+    public static float AlphaStrike { get => alphaStrike; set => alphaStrike = value; }
 
     public static float Health{get => health; set => health = value;}
 
@@ -54,9 +67,13 @@ public class GameController : MonoBehaviour
         health -= damage;
         if (Health <= 0)
         {
-            KillPlayer(player);
+            Kill(player);
+            
         }
     }
+    
+
+    
 
     public static void HealPlayer(float healAmount)
     {
@@ -72,11 +89,27 @@ public class GameController : MonoBehaviour
     {
         fireRate -= rate;
     }
-
-
-    public static void KillPlayer(GameObject player)
+    public static void AlphaStrikeChange(float alpha)
     {
-        Destroy(player);
+        alphaStrike += alpha;
+    }
+
+
+
+    public static void Kill(GameObject person)
+    {
+        Destroy(person);
+
+    }
+
+    public static void ScoreUpdated(int scoreUp)
+    {
+        score += scoreUp;
+    }
+
+    public static void LevelPassed()
+    {
+        levelsPassed++;
     }
 
 }

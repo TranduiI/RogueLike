@@ -24,10 +24,19 @@ public class EnemyController : MonoBehaviour
 {
     GameObject player;
 
+    public EnemyData enemyData;
 
 
     public EnemyState currState = EnemyState.Idle;
     public EnemyType enemyType;
+
+
+
+    //public static float EnemyHealth {get => enemyHealth; set => enemyHealth = value; }
+
+
+    public float enemyHealth;
+
 
 
     public float range;
@@ -50,12 +59,16 @@ public class EnemyController : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+
         player = GameObject.FindGameObjectWithTag("Player");
+        
 
     }
 
     // Update is called once per frame
+    
+
     void Update()
     {
         switch (currState)
@@ -177,18 +190,43 @@ public class EnemyController : MonoBehaviour
         coolDownAttack = false;
     }
 
+    public void DamageEnemy(float damage, GameObject enemy)
+    {   
+        enemyHealth -= damage;
+        Debug.Log("EnemyHealth" + enemyHealth);
+        if (enemyHealth <= 0)
+        {
+            Debug.Log("EnemyDied");
+            Death();
+        }
+    }
+
     public void Death()
     {
-
         RoomController.instance.StartCoroutine(RoomController.instance.RoomCoroutine());
+        switch (enemyType)
+        {
+            case (EnemyType.Melee):
+                GameController.ScoreUpdated(10);
+                break;
+            case (EnemyType.Ranged):
+                GameController.ScoreUpdated(15);
+                break;
+            case (EnemyType.Boss):
+                GameController.ScoreUpdated(250);
+                break;
+
+
+        }
+
         if (enemyType == EnemyType.Boss)
         {
+            
             RoomController.instance.MakeNewScene();
+            GameController.LevelPassed();
         }
 
         Destroy(gameObject);
-        
-        
     }
 
 }
