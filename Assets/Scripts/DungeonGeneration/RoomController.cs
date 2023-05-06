@@ -215,9 +215,9 @@ public class RoomController : MonoBehaviour
             if(currRoom != room)
             {
                 EnemyController[] enemies = room.GetComponentsInChildren<EnemyController>();
-                if(enemies != null)
+                if (enemies.Length > 0) //if(enemies != null)
                 {
-                    foreach(EnemyController enemy in enemies)
+                    foreach (EnemyController enemy in enemies)
                     {
                         enemy.notInRoom = true;
                         Debug.Log("Not in Room");
@@ -304,8 +304,11 @@ public class RoomController : MonoBehaviour
         //}
 
         loadedRooms.Clear();
-        SceneManager.LoadScene(5);
-        
+        BetweenScenesController.nextLevel = 5;
+        BetweenScenesController.sceneEnd = true;
+        //SceneManager.LoadScene(5);
+        GameController.LevelPassed();
+
     }
 
 }

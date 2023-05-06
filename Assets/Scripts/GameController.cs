@@ -10,16 +10,16 @@ public class GameController : MonoBehaviour
     public GameObject player;
     
 
-    private static float health = 1000;
-    private static int  maxHealth = 1000;
-    private static float moveSpeed = 5;
+    private static float health = 1000000;
+    private static int  maxHealth = 1000000;
+    private static float moveSpeed = 15;
     private static float fireRate = 0.5f;
 
-    private static float alphaStrike = 0.5f;
+    private static float alphaStrike = 5f;
 
     private static int score = 0;
 
-    private static int levelsPassed = 0;
+    private static int levelsPassed = 1;
 
     public Text healthText;
 
@@ -82,16 +82,26 @@ public class GameController : MonoBehaviour
 
     public static void MoveSpeedChange(float speed)
     {
-        moveSpeed += speed;
+        if(moveSpeed + speed < 14)
+        {
+            moveSpeed += speed;
+        } 
+        
     }
 
     public static void AttackSpeedChange(float rate)
     {
-        fireRate -= rate;
+        if(fireRate - rate > 0.2f)
+        {
+            fireRate -= rate;
+        } 
     }
     public static void AlphaStrikeChange(float alpha)
     {
-        alphaStrike += alpha;
+        if (alphaStrike + alpha < 15)
+        {
+            alphaStrike += alpha;
+        }
     }
 
 
@@ -99,6 +109,8 @@ public class GameController : MonoBehaviour
     public static void Kill(GameObject person)
     {
         Destroy(person);
+        BetweenScenesController.nextLevel = 8;
+        BetweenScenesController.sceneEnd = true;
 
     }
 
@@ -109,7 +121,7 @@ public class GameController : MonoBehaviour
 
     public static void LevelPassed()
     {
-        levelsPassed++;
+        levelsPassed = levelsPassed+1;
     }
 
 }

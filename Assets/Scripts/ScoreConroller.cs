@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class ScoreConroller : MonoBehaviour
 {
-    private int score;
-    private int levelPassed;
+    
     public Text scoreText;
     public Text levelPassedText;
 

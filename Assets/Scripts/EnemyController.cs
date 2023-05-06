@@ -162,7 +162,7 @@ public class EnemyController : MonoBehaviour
             {
                 case(EnemyType.Melee):
                     
-                    GameController.DamagePlayer(1, player);
+                    GameController.DamagePlayer(5, player);
                     StartCoroutine(CoolDown());
                     break;
                 case(EnemyType.Ranged):
@@ -210,20 +210,18 @@ public class EnemyController : MonoBehaviour
                 GameController.ScoreUpdated(10);
                 break;
             case (EnemyType.Ranged):
-                GameController.ScoreUpdated(15);
+                GameController.ScoreUpdated(5);
                 break;
             case (EnemyType.Boss):
                 GameController.ScoreUpdated(250);
                 break;
-
-
         }
 
         if (enemyType == EnemyType.Boss)
         {
             
             RoomController.instance.MakeNewScene();
-            GameController.LevelPassed();
+            
         }
 
         Destroy(gameObject);

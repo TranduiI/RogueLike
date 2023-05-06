@@ -48,7 +48,12 @@ public class BulletController : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D col)
-    {
+    {   
+        if(col.tag == "Wall")
+        {
+            Destroy(gameObject);
+        }
+
         if (col.tag == "Enemy" && !isEnemyBullet)
         {
 
@@ -60,9 +65,10 @@ public class BulletController : MonoBehaviour
         }
         if(col.tag == "Player" && isEnemyBullet)
         {
-            GameController.DamagePlayer(2,col.gameObject);
+            GameController.DamagePlayer(6,col.gameObject);
             Destroy(gameObject);
         }
+
     }
 
 }
