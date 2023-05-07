@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour
             {
                 RoomController.instance.StartCoroutine(RoomController.instance.RoomCoroutine());
                 RoomController.instance.MakeNewScene();
+                Debug.Log("Загрузка из Enemy");
 
             }
             Destroy(enemy);

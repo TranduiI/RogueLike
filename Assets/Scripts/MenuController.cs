@@ -14,8 +14,8 @@ public class MenuController : MonoBehaviour
     // Start is called before the first frame update
     public void StartGame()
     {
-        
-        BetweenScenesController.nextLevel = 6;
+        GameController.SetToDefault();
+        BetweenScenesController.nextLevel = 2;
         BetweenScenesController.sceneEnd = true;
         Debug.Log("Вызвана прогрузка");
 

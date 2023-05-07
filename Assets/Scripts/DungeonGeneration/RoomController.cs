@@ -220,7 +220,7 @@ public class RoomController : MonoBehaviour
                     foreach (EnemyController enemy in enemies)
                     {
                         enemy.notInRoom = true;
-                        Debug.Log("Not in Room");
+                        //Debug.Log("Not in Room");
                     }
                     foreach(Door door in room.GetComponentsInChildren<Door>())
                     {
@@ -243,7 +243,7 @@ public class RoomController : MonoBehaviour
                     foreach (EnemyController enemy in enemies)
                     {
                         enemy.notInRoom = false;
-                        Debug.Log("In Room");
+                        //Debug.Log("In Room");
                     }
                     foreach (Door door in room.GetComponentsInChildren<Door>())
                     {
@@ -300,13 +300,18 @@ public class RoomController : MonoBehaviour
 
         //foreach (Room r in loadedRooms)
         //{
-        //    Destroy(gameObject);
+        //    //Destroy(gameObject);
+        //    loadedRooms.Remove(r);
         //}
+        //loadedRooms.Clear();
+        //loadedRooms = new List<Room>();
 
-        loadedRooms.Clear();
-        BetweenScenesController.nextLevel = 5;
+        //Debug.Log("RoomsCleared");
+
+        BetweenScenesController.nextLevel = 8;
         BetweenScenesController.sceneEnd = true;
         //SceneManager.LoadScene(5);
+        Debug.Log("New Scene Waiting");
         GameController.LevelPassed();
 
     }

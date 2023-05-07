@@ -10,12 +10,12 @@ public class GameController : MonoBehaviour
     public GameObject player;
     
 
-    private static float health = 1000000;
-    private static int  maxHealth = 1000000;
-    private static float moveSpeed = 15;
+    private static float health = 100;
+    private static int  maxHealth = 100;
+    private static float moveSpeed = 7;
     private static float fireRate = 0.5f;
 
-    private static float alphaStrike = 5f;
+    private static float alphaStrike = 50f;
 
     private static int score = 0;
 
@@ -23,6 +23,9 @@ public class GameController : MonoBehaviour
 
     public Text healthText;
 
+    public static bool isKilled = false;
+
+    public static bool IsKilled { get => isKilled; set => isKilled = value; }
     public static int LevelsPassed { get => levelsPassed; set => levelsPassed = value; }
 
     public static int Score { get => score; set => score = value; }
@@ -61,15 +64,27 @@ public class GameController : MonoBehaviour
         healthText.text = "Health: " + health;
         
     }
-
+    public static void SetToDefault()
+    {
+        health = 100;
+        maxHealth = 100;
+        moveSpeed = 7;
+        fireRate = 0.5f;
+        alphaStrike = 50f;
+        score = 0;
+        levelsPassed = 1;
+        isKilled = false;
+    }
     public static void DamagePlayer(int damage, GameObject player)
     {
         health -= damage;
+        Debug.Log("HP игрока: " + health);
         if (Health <= 0)
         {
             Kill(player);
-            
+
         }
+        
     }
     
 
@@ -108,8 +123,10 @@ public class GameController : MonoBehaviour
 
     public static void Kill(GameObject person)
     {
-        Destroy(person);
-        BetweenScenesController.nextLevel = 8;
+        //Destroy(person);
+        person.SetActive(false);
+        isKilled = true;
+        BetweenScenesController.nextLevel = 9;
         BetweenScenesController.sceneEnd = true;
 
     }

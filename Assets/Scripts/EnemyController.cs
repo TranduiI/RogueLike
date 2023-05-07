@@ -91,19 +91,26 @@ public class EnemyController : MonoBehaviour
         }
         if (!notInRoom)
         {
-            if (IsPlayerInRange(range) && currState != EnemyState.Die)
+            if(!GameController.IsKilled)
             {
-                currState = EnemyState.Follow;
+                if (IsPlayerInRange(range) && currState != EnemyState.Die)
+                {
+                    currState = EnemyState.Follow;
 
-            }
-            else if (!IsPlayerInRange(range) && currState != EnemyState.Die)
-            {
-                currState = EnemyState.Wander;
-            }
+                }
+                else if (!IsPlayerInRange(range) && currState != EnemyState.Die)
+                {
+                    currState = EnemyState.Wander;
+                }
 
-            if (Vector3.Distance(transform.position, player.transform.position) <= attackingRange)
+                if (Vector3.Distance(transform.position, player.transform.position) <= attackingRange)
+                {
+                    currState = EnemyState.Attack;
+                }
+            }
+            else
             {
-                currState = EnemyState.Attack;
+                currState = EnemyState.Idle;
             }
         }
         else
@@ -193,10 +200,11 @@ public class EnemyController : MonoBehaviour
     public void DamageEnemy(float damage, GameObject enemy)
     {   
         enemyHealth -= damage;
-        Debug.Log("EnemyHealth" + enemyHealth);
+        //Debug.Log("EnemyHealth" + enemyHealth);
         if (enemyHealth <= 0)
         {
-            Debug.Log("EnemyDied");
+            //Debug.Log("EnemyDied");
+            //Debug.Log("Неправильный уровень вызван отсюда");
             Death();
         }
     }
@@ -221,9 +229,10 @@ public class EnemyController : MonoBehaviour
         {
             
             RoomController.instance.MakeNewScene();
+            Debug.Log("Загрузка из EnemyController");
             
-        }
 
+        }
         Destroy(gameObject);
     }
 
