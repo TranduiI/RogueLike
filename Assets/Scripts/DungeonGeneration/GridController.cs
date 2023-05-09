@@ -21,8 +21,8 @@ public class GridController : MonoBehaviour
     private void Awake()
     {
         room = GetComponentInParent<Room>();
-        grid.columns = room.Width -1;
-        grid.rows = room.Height -1;
+        grid.columns = room.Width -3;
+        grid.rows = room.Height -3;
 
         GenerateGrid();
     }
@@ -31,9 +31,9 @@ public class GridController : MonoBehaviour
         grid.verticalOffset += room.transform.localPosition.y;
         grid.horizontalOffset += room.transform.localPosition.x;
 
-        for(int y= 0; y< grid.rows-1; y++)
+        for(int y= 0; y< grid.rows; y++)
         {
-            for(int x = 0; x< grid.columns-1; x++)
+            for(int x = 0; x< grid.columns; x++)
             {
                 GameObject go = Instantiate(gridTile, transform);
                 go.transform.position = new Vector2(x-(grid.columns-grid.horizontalOffset), y - (grid.rows - grid.verticalOffset));

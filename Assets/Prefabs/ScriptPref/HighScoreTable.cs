@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.IO;
 
 public class HighScoreTable : MonoBehaviour
 {
@@ -19,9 +20,15 @@ public class HighScoreTable : MonoBehaviour
 
         entryTemplate.gameObject.SetActive(false);
 
-        //AddHighScoreEntry(228, 897987987, "Bublic");
+        
 
-        string jsonString = PlayerPrefs.GetString("HighScoreTable");
+        //AddHighScoreEntry(228, 546456, "QWE");
+        
+
+        //string jsonString = PlayerPrefs.GetString("HighScoreTable");
+
+        string jsonString = File.ReadAllText(Application.persistentDataPath + "/HighScoreTable.json");
+
         HighScores highScores = JsonUtility.FromJson<HighScores>(jsonString);
 
         for (int i = 0; i < highScores.highScoreEntryList.Count;i++)
@@ -38,16 +45,25 @@ public class HighScoreTable : MonoBehaviour
         }
 
         highScoreEntryTransformList = new List<Transform>();
-        foreach(HighScoreEntry highScoreEntry in highScores.highScoreEntryList)
+
+        for(int i = 0; i < 10; i++)
         {
-            CreateHighScoreEntryTransform(highScoreEntry, entryContainer, highScoreEntryTransformList);
+            CreateHighScoreEntryTransform(highScores.highScoreEntryList[i], entryContainer, highScoreEntryTransformList);
         }
+
+
+
+        //foreach(HighScoreEntry highScoreEntry in highScores.highScoreEntryList)
+        //{
+        //    CreateHighScoreEntryTransform(highScoreEntry, entryContainer, highScoreEntryTransformList);
+        //}
 
         
 
 
 
     }
+    
 
     private void CreateHighScoreEntryTransform(HighScoreEntry highScoreEntry, Transform container, List<Transform> transformList)
     {
@@ -85,21 +101,43 @@ public class HighScoreTable : MonoBehaviour
 
     public static void AddHighScoreEntry(int level, int score, string name)
     {
+        
         HighScoreEntry highScoreEntry = new HighScoreEntry { level = level, score = score, name = name};
 
-        string jsonString = PlayerPrefs.GetString("HighScoreTable");
+
+        if (!File.Exists(Application.persistentDataPath + "/HighScoreTable.json"))
+        {
+            HighScores highScoresEmpty = new HighScores();
+            string jsonEmpty = JsonUtility.ToJson(highScoresEmpty);
+            //File.Create(Application.persistentDataPath + "/HighScoreTable.json");
+            File.WriteAllText(Application.persistentDataPath + "/HighScoreTable.json", jsonEmpty);
+        }
+
+        //string jsonString = PlayerPrefs.GetString("HighScoreTable");
+        string jsonString = File.ReadAllText(Application.persistentDataPath + "/HighScoreTable.json");
+
+
+
+        
+
         HighScores highScores = JsonUtility.FromJson<HighScores>(jsonString);
+        //HighScores highScores = new HighScores();
 
         highScores.highScoreEntryList.Add(highScoreEntry);
-
+        
         string json = JsonUtility.ToJson(highScores);
-        PlayerPrefs.SetString("HighScoreTable", json);
-        PlayerPrefs.Save();
+
+        //PlayerPrefs.SetString("HighScoreTable", json);
+        File.WriteAllText(Application.persistentDataPath + "/HighScoreTable.json", json);
+
+        
+        //PlayerPrefs.Save();
         
     }
     public void ClearHighScores()
     {
-        string jsonString = PlayerPrefs.GetString("HighScoreTable");
+        //string jsonString = PlayerPrefs.GetString("HighScoreTable");
+        string jsonString = File.ReadAllText(Application.persistentDataPath + "/HighScoreTable.json");
         HighScores highScores = JsonUtility.FromJson<HighScores>(jsonString);
         for (int i = 0; i < highScores.highScoreEntryList.Count; i++)
         {
@@ -107,10 +145,13 @@ public class HighScoreTable : MonoBehaviour
         }
         highScores.highScoreEntryList.Clear();
         string json = JsonUtility.ToJson(highScores);
-        PlayerPrefs.SetString("HighScoreTable", json);
-        PlayerPrefs.Save();
+        //PlayerPrefs.SetString("HighScoreTable", json);
+
+        File.WriteAllText(Application.persistentDataPath + "/HighScoreTable.json", json);
+        //PlayerPrefs.SetString(Application.persistentDataPath + "/HighScoreTable.json", json);
+        //PlayerPrefs.Save();
         
-        entryContainer.Find("HighScoreEntryTemplate(Clone)");
+        //entryContainer.Find("HighScoreEntryTemplate(Clone)");
 
         Awake();
     }

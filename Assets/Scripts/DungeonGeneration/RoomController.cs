@@ -64,7 +64,8 @@ public class RoomController : MonoBehaviour
     void UpdateRoomQueue()
     {
         if (isLoadingRoom)
-        {
+        {   
+            
             return;
         }
         if(loadRoomQueue.Count == 0)
@@ -72,6 +73,8 @@ public class RoomController : MonoBehaviour
             if(!spawnedBossRoom)
             {
                 StartCoroutine(SpawnBossRoom());
+                //loadedRooms[loadedRooms.Count - 1].GetComponentInChildren<Room>().GetComponentInChildren<EnemyController>().notInRoom = true;
+                //Debug.Log("Заморозка Босса");
             }
             else if(spawnedBossRoom && !updatedRooms)
             {
@@ -82,6 +85,7 @@ public class RoomController : MonoBehaviour
                 }
                 UpdateRooms();
                 updatedRooms = true;
+                Debug.Log("Комнаты перезагружены");
             }
             return;
         }
@@ -106,8 +110,11 @@ public class RoomController : MonoBehaviour
             var roomToRemove = loadedRooms.Single(r => r.X == tempRoom.X && r.Y == tempRoom.Y);
             loadedRooms.Remove(roomToRemove);
             LoadRoom("End", tempRoom.X, tempRoom.Y);
+            Debug.Log("Комната Босса Переспавнена");
 
+            //UpdateRooms();
         }
+
 
     }
 
@@ -135,6 +142,8 @@ public class RoomController : MonoBehaviour
         {
             yield return null;
         }
+        //yield return new WaitForSeconds(0.5f);
+        UpdateRooms();
 
     }
 
@@ -220,7 +229,7 @@ public class RoomController : MonoBehaviour
                     foreach (EnemyController enemy in enemies)
                     {
                         enemy.notInRoom = true;
-                        //Debug.Log("Not in Room");
+                        Debug.Log("Not in Room");
                     }
                     foreach(Door door in room.GetComponentsInChildren<Door>())
                     {
@@ -243,7 +252,7 @@ public class RoomController : MonoBehaviour
                     foreach (EnemyController enemy in enemies)
                     {
                         enemy.notInRoom = false;
-                        //Debug.Log("In Room");
+                        Debug.Log("In Room");
                     }
                     foreach (Door door in room.GetComponentsInChildren<Door>())
                     {

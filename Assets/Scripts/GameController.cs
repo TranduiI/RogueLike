@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour
     private static float moveSpeed = 7;
     private static float fireRate = 0.5f;
 
-    private static float alphaStrike = 50f;
+    private static float alphaStrike = 5f;
 
     private static int score = 0;
 
@@ -70,7 +70,7 @@ public class GameController : MonoBehaviour
         maxHealth = 100;
         moveSpeed = 7;
         fireRate = 0.5f;
-        alphaStrike = 50f;
+        alphaStrike = 5f;
         score = 0;
         levelsPassed = 1;
         isKilled = false;
@@ -113,7 +113,7 @@ public class GameController : MonoBehaviour
     }
     public static void AlphaStrikeChange(float alpha)
     {
-        if (alphaStrike + alpha < 15)
+        if (alphaStrike + alpha < 10)
         {
             alphaStrike += alpha;
         }

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 
     public float speed;
     Rigidbody2D rigidBody;
+    SpriteRenderer sR;
 
     public Text collectedText;
     public static int collectedAmount = 0;
@@ -26,16 +27,19 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        sR = gameObject.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
         
 
         fireDelay = GameController.FireRate;
         speed = GameController.MoveSpeed;
+        
+
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
@@ -48,11 +52,41 @@ public class PlayerController : MonoBehaviour
             Shoot(shootHor, shootVer);
             lastFire = Time.time;
         }
+        
 
 
         rigidBody.velocity = new Vector3(horizontal*speed, vertical*speed, 0);
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            sR.flipX = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            sR.flipX = false;
+            
+        }
+        else
+        {
+            
+        }
+        
+
+
         //collectedText.text = "Собрал кружков: " + collectedAmount;
     }
+    private void FixedUpdate()
+    {
+        //if (rigidBody.velocity.x < 0)
+        //{
+        //    sR.flipX = true;
+        //}
+        //else
+        //{
+        //    sR.flipX = false;
+        //}
+    }
+
     void Shoot(float x, float y)
     {
         
@@ -63,14 +97,27 @@ public class PlayerController : MonoBehaviour
             (y < 0) ? Mathf.Floor(y) * bulletSpeed : Mathf.Ceil(y) * bulletSpeed,
             0);
 
+        //if (bullet.GetComponent<Rigidbody2D>().velocity.x < 0)
+        //{
+        //    sR.flipX = true;
+        //}
+        //else
+        //{
+        //    sR.flipX = false;
+        //}
+
         Vector3 rotZ = new Vector3(0, 0, 1);
 
         if (y == 0)
-        {
+        {   
+            
             bullet.GetComponent<Transform>().rotation = Quaternion.AngleAxis((x<0)? 0 : 180, rotZ);
+            
+
         }
         else if (y < 0)
         {
+
             if (x == 0)
             {
                 bullet.GetComponent<Transform>().rotation = Quaternion.AngleAxis(90, rotZ);
@@ -78,6 +125,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 bullet.GetComponent<Transform>().rotation = Quaternion.AngleAxis((x < 0) ? 45 : 135, rotZ);
+                
             }
             
         }
@@ -90,6 +138,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 bullet.GetComponent<Transform>().rotation = Quaternion.AngleAxis((x < 0) ? 315 : 225, rotZ);
+                
             }
             
         }

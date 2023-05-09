@@ -46,8 +46,9 @@ public class EnemyController : MonoBehaviour
     private bool chooseDir = false;
     //private bool dead = false;
     private bool coolDownAttack = false;
-    public bool notInRoom = false;
+    public bool notInRoom = true;
     private Vector3 randomDir;
+    private Vector2 randPos;
 
 
     public float bulletSpeed;
@@ -128,9 +129,8 @@ public class EnemyController : MonoBehaviour
     {
         chooseDir = true;
         yield return new WaitForSeconds(Random.Range(1f, 4f));
-        randomDir = new Vector3(0, 0, Random.Range(0, 360));
-        Quaternion nextRotation = Quaternion.Euler(randomDir);
-        transform.rotation = Quaternion.Lerp(transform.rotation, nextRotation, Random.Range(0.5f, 2.5f));
+        randPos = new Vector2(Random.Range(-360f, 360), Random.Range(-360f, 360f));
+        
         chooseDir = false;
     }
 
@@ -147,7 +147,8 @@ public class EnemyController : MonoBehaviour
             StartCoroutine(ChooseDirection());
             
         }
-        transform.position += -transform.right * speed * Time.deltaTime;
+        transform.position = Vector2.MoveTowards(transform.position, randPos, 5f * Time.deltaTime);
+        //transform.position += -transform.right * speed * Time.deltaTime;
         if (IsPlayerInRange(range))
         {
             currState = EnemyState.Follow;
