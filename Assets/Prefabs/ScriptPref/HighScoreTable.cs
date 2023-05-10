@@ -25,8 +25,6 @@ public class HighScoreTable : MonoBehaviour
         //AddHighScoreEntry(228, 546456, "QWE");
         
 
-        //string jsonString = PlayerPrefs.GetString("HighScoreTable");
-
         string jsonString = File.ReadAllText(Application.persistentDataPath + "/HighScoreTable.json");
 
         HighScores highScores = JsonUtility.FromJson<HighScores>(jsonString);
@@ -50,17 +48,6 @@ public class HighScoreTable : MonoBehaviour
         {
             CreateHighScoreEntryTransform(highScores.highScoreEntryList[i], entryContainer, highScoreEntryTransformList);
         }
-
-
-
-        //foreach(HighScoreEntry highScoreEntry in highScores.highScoreEntryList)
-        //{
-        //    CreateHighScoreEntryTransform(highScoreEntry, entryContainer, highScoreEntryTransformList);
-        //}
-
-        
-
-
 
     }
     
@@ -110,49 +97,28 @@ public class HighScoreTable : MonoBehaviour
             HighScores highScoresEmpty = new HighScores();
             string jsonEmpty = JsonUtility.ToJson(highScoresEmpty);
             //File.Create(Application.persistentDataPath + "/HighScoreTable.json");
-            File.WriteAllText(Application.persistentDataPath + "/HighScoreTable.json", jsonEmpty);
+            File.WriteAllText(Application.persistentDataPath + "/HighScoreTable.json", jsonEmpty); // WriteAllText должен сам создать файл если его нет
         }
 
-        //string jsonString = PlayerPrefs.GetString("HighScoreTable");
         string jsonString = File.ReadAllText(Application.persistentDataPath + "/HighScoreTable.json");
-
-
-
-        
-
         HighScores highScores = JsonUtility.FromJson<HighScores>(jsonString);
-        //HighScores highScores = new HighScores();
-
         highScores.highScoreEntryList.Add(highScoreEntry);
         
         string json = JsonUtility.ToJson(highScores);
-
-        //PlayerPrefs.SetString("HighScoreTable", json);
-        File.WriteAllText(Application.persistentDataPath + "/HighScoreTable.json", json);
-
-        
-        //PlayerPrefs.Save();
-        
+        File.WriteAllText(Application.persistentDataPath + "/HighScoreTable.json", json);       
     }
     public void ClearHighScores()
     {
-        //string jsonString = PlayerPrefs.GetString("HighScoreTable");
         string jsonString = File.ReadAllText(Application.persistentDataPath + "/HighScoreTable.json");
         HighScores highScores = JsonUtility.FromJson<HighScores>(jsonString);
         for (int i = 0; i < highScores.highScoreEntryList.Count; i++)
         {
             Destroy(entryContainer.gameObject);
         }
+
         highScores.highScoreEntryList.Clear();
         string json = JsonUtility.ToJson(highScores);
-        //PlayerPrefs.SetString("HighScoreTable", json);
-
         File.WriteAllText(Application.persistentDataPath + "/HighScoreTable.json", json);
-        //PlayerPrefs.SetString(Application.persistentDataPath + "/HighScoreTable.json", json);
-        //PlayerPrefs.Save();
-        
-        //entryContainer.Find("HighScoreEntryTemplate(Clone)");
-
         Awake();
     }
 

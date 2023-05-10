@@ -70,10 +70,6 @@ public class PlayerController : MonoBehaviour
         {
             
         }
-        
-
-
-        //collectedText.text = "Собрал кружков: " + collectedAmount;
     }
     private void FixedUpdate()
     {
@@ -96,15 +92,6 @@ public class PlayerController : MonoBehaviour
             (x < 0) ? Mathf.Floor(x) * bulletSpeed : Mathf.Ceil(x) * bulletSpeed,
             (y < 0) ? Mathf.Floor(y) * bulletSpeed : Mathf.Ceil(y) * bulletSpeed,
             0);
-
-        //if (bullet.GetComponent<Rigidbody2D>().velocity.x < 0)
-        //{
-        //    sR.flipX = true;
-        //}
-        //else
-        //{
-        //    sR.flipX = false;
-        //}
 
         Vector3 rotZ = new Vector3(0, 0, 1);
 

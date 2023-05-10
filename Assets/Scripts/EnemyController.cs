@@ -30,24 +30,15 @@ public class EnemyController : MonoBehaviour
     public EnemyState currState = EnemyState.Idle;
     public EnemyType enemyType;
 
-
-
-    //public static float EnemyHealth {get => enemyHealth; set => enemyHealth = value; }
-
-
     public float enemyHealth;
-
-
-
     public float range;
     public float attackingRange;
     public float coolDown;
     public float speed;
     private bool chooseDir = false;
-    //private bool dead = false;
     private bool coolDownAttack = false;
     public bool notInRoom = true;
-    private Vector3 randomDir;
+    //private Vector3 randomDir;
     private Vector2 randPos;
 
 
@@ -129,7 +120,7 @@ public class EnemyController : MonoBehaviour
     {
         chooseDir = true;
         yield return new WaitForSeconds(Random.Range(1f, 4f));
-        randPos = new Vector2(Random.Range(-360f, 360), Random.Range(-360f, 360f));
+        randPos = new Vector2(Random.Range(-360f, 360f), Random.Range(-360f, 360f));
         
         chooseDir = false;
     }
@@ -204,8 +195,6 @@ public class EnemyController : MonoBehaviour
         //Debug.Log("EnemyHealth" + enemyHealth);
         if (enemyHealth <= 0)
         {
-            //Debug.Log("EnemyDied");
-            //Debug.Log("Неправильный уровень вызван отсюда");
             Death();
         }
     }
@@ -227,12 +216,9 @@ public class EnemyController : MonoBehaviour
         }
 
         if (enemyType == EnemyType.Boss)
-        {
-            
+        {           
             RoomController.instance.MakeNewScene();
-            Debug.Log("Загрузка из EnemyController");
-            
-
+            //Debug.Log("Загрузка из EnemyController");
         }
         Destroy(gameObject);
     }

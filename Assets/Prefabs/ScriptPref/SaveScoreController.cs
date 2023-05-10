@@ -9,7 +9,7 @@ using System;
 
 public class SaveScoreController : MonoBehaviour
 {   
-    public InputField field; // —сылка на ваш InputField - указываем в инспекторе
+    public InputField field; // —сылка на InputField - указываем в инспекторе
     string playerNameText;
     int score;
     int level;

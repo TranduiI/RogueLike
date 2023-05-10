@@ -58,9 +58,6 @@ public class BulletController : MonoBehaviour
         {
 
             col.gameObject.GetComponent<EnemyController>().DamageEnemy(GameController.AlphaStrike, col.gameObject);
-
-            //col.gameObject.GetComponent<EnemyController>().Death();
-            
             Destroy(gameObject);
         }
         if(col.tag == "Player" && isEnemyBullet)

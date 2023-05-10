@@ -18,7 +18,6 @@ public class BetweenScenesController : MonoBehaviour
 	{
 		_image = GetComponent<Image>();
 		_image.enabled = true;
-		//levelText.enabled = true;
 		sceneStarting = true;
 		sceneEnd = false;
 		Cursor.visible = true;
@@ -33,17 +32,9 @@ public class BetweenScenesController : MonoBehaviour
 
 	void StartScene()
 	{
-		//levelText.text = "Уровень " + GameController.LevelsPassed;
+		
 		_image.color = Color.Lerp(_image.color, Color.clear, fadeSpeed * Time.deltaTime);
-		//levelText.color = Color.Lerp(levelText.color, Color.clear, fadeSpeed * Time.deltaTime);	
-		//if (nextLevel == 8)
-		//{
-		//		levelText.text = "Потрачено";
-		//}
-		//else
-		//{
-		//		levelText.text = "Уровень " + GameController.LevelsPassed;
-		//}
+		
 
 		if (_image.color.a <= 0.01f)
 		{
@@ -56,23 +47,10 @@ public class BetweenScenesController : MonoBehaviour
 
 	void EndScene()
 	{
-		//Debug.Log("Началась прогрузка");
+		
 		_image.enabled = true;
-		//levelText.enabled = true;
 		_image.color = Color.Lerp(_image.color, Color.black, fadeSpeed * Time.deltaTime);
-		//levelText.color = Color.Lerp(levelText.color, Color.white, fadeSpeed * Time.deltaTime);
-		//if (nextLevel == 9)
-		//{
-		//		levelText.text = "Потрачено";
-		//}
-		//else if(nextLevel == 0)
-		//{
-		//	levelText.text = "";
-		//}
-		//else
-		//{
-		//		levelText.text = "Уровень " + GameController.LevelsPassed;
-		//}
+		
 		
 		
 		if (_image.color.a >= 0.95f)

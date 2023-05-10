@@ -46,13 +46,6 @@ public class RoomController : MonoBehaviour
     void Start()
     {
 
-        //UpdateRoomQueue();
-        //LoadRoom("Start", 0, 0);
-        //LoadRoom("Empty", 1, 0);
-        //LoadRoom("Empty", -1, 0); 
-        //LoadRoom("Empty", 0, 1);
-        //LoadRoom("Empty", 0, -1);
-
     }
 
     void Update()
@@ -73,8 +66,6 @@ public class RoomController : MonoBehaviour
             if(!spawnedBossRoom)
             {
                 StartCoroutine(SpawnBossRoom());
-                //loadedRooms[loadedRooms.Count - 1].GetComponentInChildren<Room>().GetComponentInChildren<EnemyController>().notInRoom = true;
-                //Debug.Log("Заморозка Босса");
             }
             else if(spawnedBossRoom && !updatedRooms)
             {
@@ -111,8 +102,6 @@ public class RoomController : MonoBehaviour
             loadedRooms.Remove(roomToRemove);
             LoadRoom("End", tempRoom.X, tempRoom.Y);
             Debug.Log("Комната Босса Переспавнена");
-
-            //UpdateRooms();
         }
 
 
@@ -142,7 +131,6 @@ public class RoomController : MonoBehaviour
         {
             yield return null;
         }
-        //yield return new WaitForSeconds(0.5f);
         UpdateRooms();
 
     }
@@ -170,7 +158,6 @@ public class RoomController : MonoBehaviour
             }
 
             loadedRooms.Add(room);
-            //room.RemoveUnconnectedDoors();
         }
         else
         {
@@ -269,60 +256,14 @@ public class RoomController : MonoBehaviour
             }
         }
     }
-    //public bool BossIsDead()
-    //{
-    //    if (bossIsDead)
-    //    {
-    //        bossIsDead = false;
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        return false;
-    //    }
-    //}
-
-    //public void DestroyAllRoomsWhenBossDead()
-    //{
-    //    foreach(Room room in loadedRooms)
-    //    {
-    //        Destroy(room.gameObject);
-    //        loadedRooms.Remove(room);
-    //    }
-    //    loadedRooms.Clear();
-    //    bossIsDead = true;
-        
-
-        
-
-    //    if (loadedRooms.Count == 0)
-    //    {
-    //        Debug.Log("Нет загруженных комнат");
-    //    }
-               
-    //}
+    
     public void MakeNewScene()
     {
-
-
-        //DontDestroyOnLoad(gameObject);
-
-        //foreach (Room r in loadedRooms)
-        //{
-        //    //Destroy(gameObject);
-        //    loadedRooms.Remove(r);
-        //}
-        //loadedRooms.Clear();
-        //loadedRooms = new List<Room>();
-
-        //Debug.Log("RoomsCleared");
-
         BetweenScenesController.nextLevel = 8;
         BetweenScenesController.sceneEnd = true;
-        //SceneManager.LoadScene(5);
-        Debug.Log("New Scene Waiting");
+        
+        //Debug.Log("New Scene Waiting");
         GameController.LevelPassed();
-
     }
 
 }

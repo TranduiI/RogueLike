@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour
     public static float FireRate{get => fireRate; set => fireRate = value;}
 
    
-    // Start is called before the first frame update
+    
     void Awake()
     {
         if(instanse==null)
@@ -51,6 +51,7 @@ public class GameController : MonoBehaviour
         
     }
 
+    // Start is called before the first frame update
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -123,7 +124,7 @@ public class GameController : MonoBehaviour
 
     public static void Kill(GameObject person)
     {
-        //Destroy(person);
+        
         person.SetActive(false);
         isKilled = true;
         BetweenScenesController.nextLevel = 9;

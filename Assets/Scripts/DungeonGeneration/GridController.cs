@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GridController : MonoBehaviour
 {
-    // Start is called before the first frame update
     public Room room;
     [System.Serializable]
     public struct Grid

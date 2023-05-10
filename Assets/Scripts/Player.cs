@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        // Заглушка для вызова колбека при инициализации текущего объекта
         var currentScene = SceneManager.GetActiveScene();
         Initialization(currentScene, currentScene);
     }
